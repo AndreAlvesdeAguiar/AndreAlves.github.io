@@ -5,7 +5,7 @@ export default {
   data: () => {
     return {
       projectName: "Nuxt.js & Tailwind CSS Portfolio",
-      author: "LFXA",
+      author: "Andre",
     };
   },
   computed: {

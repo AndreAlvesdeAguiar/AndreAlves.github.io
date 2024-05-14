@@ -18,7 +18,7 @@ const props = defineProps({
     type: Array,
   },
   postPerPage: {
-    default: 5,
+    default: 2,
     type: Number,
   },
 });

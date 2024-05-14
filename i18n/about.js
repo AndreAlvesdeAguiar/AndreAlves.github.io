@@ -1,6 +1,6 @@
 export const aboutPagePTBR = {
   text1:
-    '<span class="center">Sou o  <strong> L<span class="expand l-expand">ucas</span> <span>  F<span class="expand fx-expand">eli</span>X</span> A<span class="expand a-expand">quino</span></strong>, um <strong>engenheiro de software</strong> e <strong>eterno aprendiz</strong>. Ser engenheiro de software se trata de resolver problemas e exige aprendizado contínuo, já que a tecnologia está sempre evoluindo. É mais do que escrever código é ser eficiente nas soluções.</span>',
+    '<span class="center">Sou o  <strong> Andre<span class="expand l-expand"></span> <span><span class="expand fx-expand">Alves</span></span><span class="expand a-expand">de Aguiar</span></strong>, um <strong>engenheiro de software</strong> e <strong>analista de dados</strong>. Ser engenheiro de software se trata de resolver problemas e exige aprendizado contínuo, já que a tecnologia está sempre evoluindo. É mais do que escrever código é ser eficiente nas soluções.</span>',
   text2:
     "Tenho trabalhado com desenvolvimento para web desde de 2020 e a utilização de Ruby On Rails tem sido uma das minhas principais áreas de foco. Além disso, explorei frameworks populares, como Python e Vue.js.",
   text3:
@@ -18,7 +18,7 @@ export const aboutPagePTBR = {
 
 export const aboutPageENUS = {
   text1:
-    '<span class="center">Hi, I\'m <strong> L<span class="expand l-expand">ucas</span> <span>  F<span class="expand fx-expand">eli</span>X</span> A<span class="expand a-expand">quino</span></strong>, a <strong>software engineer</strong> and <strong>life long learner</strong>. Being a software engineer is about solving problems and requires continuous learning as technology is always evolving. It\'s more than writing code, it\'s being efficient in solutions.</span>',
+    '<span class="center">Hi, I\'m <strong> Andre<span class="expand l-expand"></span> <span><span class="expand fx-expand">Alves</span></span><span class="expand a-expand">de Aguiar</span></strong>, a <strong>software engineer</strong> and <strong>life long learner</strong>. Being a software engineer is about solving problems and requires continuous learning as technology is always evolving. It\'s more than writing code, it\'s being efficient in solutions.</span>',
   text2:
     "I have been working with web development since 2020 and using Ruby On Rails has been one of my main areas of focus. In addition, I explored popular frameworks such as Python and Vue.js.",
   text3:
