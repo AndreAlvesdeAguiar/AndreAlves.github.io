@@ -30,7 +30,7 @@ export default {
             >A<span class="expand l-expand">ndre</span></span
           >
           <span class="expand-space"
-            >A<span class="expand fx-expand">lves</span>X</span
+            >A<span class="expand fx-expand">lves</span></span
           >
           <span>A<span class="expand a-expand">guiar</span></span>
         </div>
