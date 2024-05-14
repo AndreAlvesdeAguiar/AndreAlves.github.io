@@ -137,7 +137,7 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  flex-basis: 30%;
+  flex-basis: 23%;
 }
 
 .portfolio-header-image {
