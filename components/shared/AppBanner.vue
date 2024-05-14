@@ -27,12 +27,12 @@ export default {
         {{ $t("home.titleApresentation") }}
         <div class="wrapper-expand">
           <span class="expand-space"
-            >A<span class="expand l-expand">ndre</span></span
+            >Andre<span class="expand l-expand"></span></span
           >
           <span class="expand-space"
-            >A<span class="expand fx-expand">lves</span></span
+            ><span class="expand fx-expand">Alves de</span></span
           >
-          <span>A<span class="expand a-expand">guiar</span></span>
+          <span><span class="expand a-expand">Aguiar</span></span>
         </div>
       </h1>
       <p
