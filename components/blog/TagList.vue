@@ -2,7 +2,7 @@
 const route = useRoute();
 defineProps({
   tags: {
-    required: true,
+    required: false,
     type: Array,
   },
 });
