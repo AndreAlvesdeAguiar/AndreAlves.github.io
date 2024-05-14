@@ -14,7 +14,7 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      title: "LFXA personal.",
+      title: "AndreAlvesdeAguiar personal.",
       htmlAttrs: {
         lang: "en",
       },

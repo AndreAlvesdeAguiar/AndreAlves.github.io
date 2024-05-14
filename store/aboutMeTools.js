@@ -6,7 +6,7 @@ export const aboutMeTools = [
     tools: [
       {
         icon: "skill-icons:cs",
-        text: "C#",
+        text: "Ruby",
       },
       {
         icon: "skill-icons:javascript",
@@ -14,15 +14,15 @@ export const aboutMeTools = [
       },
       {
         icon: "skill-icons:nodejs-light",
-        text: "Node.js",
+        text: "Rails",
       },
       {
         icon: "skill-icons:dotnet",
-        text: ".NET",
+        text: "Python",
       },
       {
         icon: "skill-icons:kafka",
-        text: "Apache Kafka",
+        text: "Gambiara",
       },
     ],
   },
@@ -70,10 +70,6 @@ export const aboutMeTools = [
         icon: "skill-icons:kubernetes",
         text: "Kubernetes",
       },
-      {
-        icon: "skill-icons:jenkins-light",
-        text: "Jenkins",
-      },
     ],
   },
   {
@@ -83,10 +79,6 @@ export const aboutMeTools = [
       {
         icon: "skill-icons:postman",
         text: "Postman",
-      },
-      {
-        icon: "skill-icons:visualstudio-dark",
-        text: "Visual Studio",
       },
       {
         icon: "skill-icons:vscode-dark",
@@ -100,11 +92,11 @@ export const aboutMeTools = [
     tools: [
       {
         icon: "skill-icons:python-light",
-        text: "Python",
+        text: "C",
       },
       {
         icon: "skill-icons:flutter-light",
-        text: "Flutter",
+        text: "C++",
       },
       {
         icon: "skill-icons:raspberrypi-light",

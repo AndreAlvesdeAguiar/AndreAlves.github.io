@@ -1,7 +1,7 @@
 export const skillsPTBR = {
-  certificateAluraDotNet: "Certificado de formação .NET da Alura",
+  certificateAluraDotNet: "Certificado de formação Web Development - Le Wagon",
 };
 
 export const skillsENUS = {
-  certificateAluraDotNet: ".NET training certificate from Alura",
+  certificateAluraDotNet: "Web Development training certificate from - Le Wagon",
 };

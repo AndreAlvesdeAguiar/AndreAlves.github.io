@@ -1,6 +1,6 @@
 export const homePagePTBR = {
   titleApresentation: "Olá, eu sou ",
-  descriptionApresentation: "Engenheiro de software & Eterno aprendiz",
+  descriptionApresentation: "Engenheiro de Software & Analista de Dados",
   inputEmail: "Email",
   inputPhone: "Telefone",
   inputMessage: "Mensagem",
@@ -12,7 +12,7 @@ export const homePagePTBR = {
 
 export const homePageENUS = {
   titleApresentation: "Hello, I'm ",
-  descriptionApresentation: "Software engineer & Life long learner",
+  descriptionApresentation: "Software engineer & Data Analytics",
   inputName: "Nome",
   inputEmail: "Email",
   inputPhone: "Phone",
