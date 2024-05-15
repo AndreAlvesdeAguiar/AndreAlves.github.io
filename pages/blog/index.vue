@@ -5,7 +5,7 @@
     <h1>Meus Posts</h1>
     
     <BlogGridSkeleton v-if="pending" />
-    <BlogGrid  v-else :posts="posts" />
+    <BlogGrid  v-else="post in posts" :key="post.id" />
   </div>
 </template>
       <div v-if="post in posts" :key="post.id">
