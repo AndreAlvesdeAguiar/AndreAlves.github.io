@@ -8,7 +8,7 @@
 </template>
 <script setup lang="ts">
 const { data: posts, pending } = await useFetch(
-  "https://dev.to/api/articles?username=lfxa",
+  "https://dev.to/api/articles?username=dehkeep",
 );
 </script>
 <style scoped></style>
