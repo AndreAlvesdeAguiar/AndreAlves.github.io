@@ -30,10 +30,10 @@ const filteredBlogPosts = computed(() => {
     ?.filter((post) => {
       const postLang = post.canonical_url.split("/")[3];
       const isSameLanguage = postLang === locale.value;
-      const hasTagQuery = route.query.tag !== undefined;
+      // const hasTagQuery = route.query.tag !== undefined;
       return (
         isSameLanguage &&
-        (!hasTagQuery || post.tag_list.includes(route.query.tag))
+        // (!hasTagQuery || post.tag_list.includes(route.query.tag))
       );
     })
     .slice(
@@ -61,7 +61,7 @@ const totalPages = computed(() =>
         :post="post"
       />
     </TransitionGroup>
-    <BlogTagList
+    <!-- <BlogTagList
       class="md:row-span-2 row-span-1 col-span-6 md:col-span-2"
       :tags="tags"
     />
@@ -71,7 +71,7 @@ const totalPages = computed(() =>
       :total-pages="totalPages"
       @next-page="currentPage++"
       @prev-page="currentPage--"
-    />
+    /> -->
   </div>
   <div
     v-else
