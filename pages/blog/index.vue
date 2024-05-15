@@ -7,9 +7,8 @@
   </div>
 </template>
 <script setup lang="ts">
-const { data: post, pending } = await useFetch(
-  "https://dev.to/api/articles/dehkeep/" + slug,
-  { lazy: true, server: false },
+const { data: posts, pending } = await useFetch(
+  "https://dev.to/api/articles/dehkeep/acsdasd-149g",
 );
 </script>
 <style scoped></style>
