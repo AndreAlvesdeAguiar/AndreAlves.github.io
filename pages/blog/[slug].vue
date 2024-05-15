@@ -1,78 +1,144 @@
-<script setup lang="ts">
-const route = useRoute();
-const localePath = useLocalePath();
-const slug = route.params.slug;
-const { locale } = useI18n();
-
-onBeforeRouteLeave(async (to, from, next) => {
-  if (
-    post.value &&
-    to.fullPath.split("/").pop() === from.fullPath.split("/").pop()
-  ) {
-    const last = post.value.canonical_url.split("/").pop();
-    const toPost = last.replace("blog?to=", "").split(",");
-    const index = locale.value === "pt-BR" ? 0 : 1;
-    await next(`/${locale.value}/blog/${toPost[index]}`);
-  }
-  next();
-});
-
-const { data: post, pending } = await useFetch(
-  "https://dev.to/api/articles/aguiar1001/" + slug,
-  { lazy: true, server: false },
-);
-</script>
 <template>
-  <div
-    v-if="!post || pending"
-    class="h-screen flex flex-col items-center container justify-center center text-primary-dark dark:text-primary-light"
-  >
-    <p>{{ $t("blog.withoutPost") }}</p>
-  </div>
-  <div
-    v-else-if="post && !pending"
-    class="max-w-3xl px-4 sm:px-6 xl:max-w-5xl container m-auto mb-10"
-  >
-    <article>
-      <div class="mb-10">
-        <div class="relative z-0">
-          <img
-            :src="post.cover_image"
-            :alt="post.title"
-            class="flex rounded-md my-7"
-          />
-          <div
-            class="absolute inset-0 flex flex-col items-center justify-center backdrop-contrast-50 bg-black/30 text-center text-primary-light rounded-md font-bold"
-          >
-            <h1 class="lg:text-5xl md:text-2xl text-md mt-6">
-              {{ post.title }}
-            </h1>
-            <p class="my-7 md:text-md text-sm">
-              {{ formatDate(post.published_at, $i18n.locale) }} -
-              {{ post.reading_time_minutes }} {{ $t("blog.minRead") }}
-            </p>
+  <div class="grid p-5 w-full sm:m-auto sm:max-w-3xl">
+    <div class="min-h-screen">
+      <div class="flex mb-4">
+        <h1 class="dark:text-gray-300 text-3xl font-bold">Github Repo</h1>
+      </div>
+
+      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2" v-if="loading == true">
+        <div class="card bg-gray-100 shadow-xl h-40" v-for="x in 6" :key="x">
+          <div class="card-body bg-zinc-200 dark:bg-zinc-800 animate-pulse">
+            <div class="card-actions justify-end"></div>
           </div>
         </div>
       </div>
-      <div
-        class="divide-y divide-gray-200 pb-8 dark:divide-gray-700 xl:grid xl:grid-cols-4 xl:gap-x-6 xl:divide-y-0"
-      >
-        <div
-          class="blog-post xl:col-span-3 xl:row-span-2 space-y-6 text-xl text-primary-dark dark:text-primary-light"
-          v-html="post.body_html"
-        ></div>
 
-        <div
-          class="pt-4 divide-gray-200 text-md font-medium xl:col-start-1 xl:row-start-1"
-        >
-          <NuxtLink
-            :to="localePath('blog', $i18n.locale)"
-            class="text-primary-dark dark:text-primary-light hover:text-primary-600 dark:hover:text-primary-400"
-          >
-            &larr; {{ $t("blog.backToTheBlog") }}
-          </NuxtLink>
+      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 mb-10 sm:mb-0" v-else>
+        <div class="card border border-black dark:border-white" v-for="(x, key) in repo" :key="key">
+          <div class="card-body">
+            <h2 class="card-title dark:text-white underline">{{ x.name }}</h2>
+            <p class="dark:text-white">
+              {{ x.description ?? "No Description" }}
+            </p>
+            <div class="card-actions justify-end" v-if="x.homepage != '' && x.homepage != null">
+              <a :href="x.homepage" target="_blank" class="btn btn-sm dark:border-white dark:text-white">View</a>
+            </div>
+            <div class="card-actions justify-between items-center mt-3">
+              <span class="badge badge-primary dark:text-white">{{
+              x.language
+              }}</span>
+              <a :href="x.html_url" target="_blank" class="btn btn-sm btn-primary dark:text-white">View Repo</a>
+            </div>
+          </div>
         </div>
       </div>
-    </article>
+      <div id="load_more" class="w-full text-center mt-8">
+        <label for="" class="btn btn-ghost dark:text-white" v-if="load_more">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+            stroke="currentColor" class="w-6 h-6 animate-spin">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
+          </svg>
+        </label>
+      </div>
+    </div>
   </div>
 </template>
+
+<script>
+export default {
+  head: {
+    title: "Projects - Andre | Portfolio",
+  },
+  data() {
+    return {
+      repo: [],
+      loading: true,
+      url: "https://dev.to/api/articles/aguiar1001/link-com-vercel-3f46"",
+      counter: 0,
+      load_more: false,
+      data_length: 0,
+    };
+  },
+  mounted() {
+    fetch(this.url)
+      .then((response) => response.json())
+      .then((data) => {
+        this.sortByDate(data);
+        this.data_length = data.length;
+        data.forEach((element) => {
+          this.loading = false;
+          if (this.counter < 6) {
+            if (element.private == false) {
+              this.repo.push(element);
+              this.counter++;
+            }
+          }
+        });
+      })
+      .then(() => {
+        this.counter = 0;
+      })
+      .catch((e) => console.log(e));
+
+    const load = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          if (this.repo.length < this.data_length) {
+            this.load_more = true;
+            this.loadMore();
+          }
+        }
+      });
+    });
+
+    load.observe(document.querySelector("#load_more"));
+
+  },
+  methods: {
+    sortByDate(arr) {
+      const sorter = (a, b) => {
+        return (
+          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        );
+      };
+      arr.sort(sorter);
+    },
+
+    loadMore() {
+      setTimeout(() => {
+        fetch(this.url)
+          .then((response) => response.json())
+          .then((data) => {
+            this.sortByDate(data);
+            data.forEach((element) => {
+              if (this.repo.length < data.length) {
+                this.repo.forEach((r) => {
+                  if (element != null && element.id == r.id) {
+                    element = null;
+                  }
+                });
+                if (element != null && this.counter < 6) {
+                  if (element.private == false) {
+                    this.repo.push(element);
+                    this.counter++;
+                  }
+                }
+              }
+            });
+            // console.log(this.repo.length, data.length);
+            this.load_more = false;
+          })
+          .then(() => {
+            this.counter = 0;
+          })
+          .catch((e) => console.log(e));
+      }, 1000);
+    },
+  },
+};
+</script>
+
+<style>
+
+</style>
