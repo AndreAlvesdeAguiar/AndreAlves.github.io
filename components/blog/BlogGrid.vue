@@ -22,15 +22,6 @@ const currentPage = ref(1);
 
 const filteredBlogPosts = computed(() => {
   return props.posts
-    ?.filter((post) => {
-      const postLang = post.canonical_url.split("/")[3];
-      const isSameLanguage = postLang === locale.value;
-      return isSameLanguage;
-    })
-    ?.slice(
-      props.postPerPage * (currentPage.value - 1),
-      currentPage.value * props.postPerPage,
-    );
 });
 
 
