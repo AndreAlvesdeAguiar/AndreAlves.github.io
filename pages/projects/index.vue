@@ -48,13 +48,13 @@
 <script>
 export default {
   head: {
-    title: "Projects - Isaac Tan | Portfolio",
+    title: "Projects - Andre | Portfolio",
   },
   data() {
     return {
       repo: [],
       loading: true,
-      url: "https://api.github.com/users/isaactan98/repos",
+      url: "https://api.github.com/users/andrealvesdeaguiar/repos",
       counter: 0,
       load_more: false,
       data_length: 0,
