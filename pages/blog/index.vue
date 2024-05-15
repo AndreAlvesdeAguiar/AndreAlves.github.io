@@ -16,7 +16,7 @@ const { data: devToPosts, pending: devToPending } = await useLazyFetch(
 
 // Fetch data for the specific article
 const { data: specificPost, pending: specificPostPending } = await useLazyFetch(
-  "https://dev.to/aguiar1001/link-com-vercel-3f46"
+  "https://dev.to/api/articles/aguiar1001/link-com-vercel-3f46"
 );
 
 // Merge specific post with dev.to posts
