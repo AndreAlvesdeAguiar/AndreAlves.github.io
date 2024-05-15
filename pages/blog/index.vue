@@ -9,8 +9,16 @@
         <p>{{ post.description }}</p>
         <a :href="post.url" target="_blank">Ver post</a>
       </div>
-      <BlogGridSkeleton v-if="pending" />
-      <BlogGrid v-else :posts="posts" />
+      <div BlogGridSkeleton v-if="pending">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.description }}</p>
+        <a :href="post.url" target="_blank">Ver post</a>
+      </div>
+      <div BlogGrid v-else :posts="posts">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.description }}</p>
+        <a :href="post.url" target="_blank">Ver post</a>
+      </div>
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
 
