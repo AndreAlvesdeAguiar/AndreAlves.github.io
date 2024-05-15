@@ -1,8 +1,8 @@
-<!-- <script setup>
+<script setup>
 const route = useRoute();
 defineProps({
   tags: {
-    required: true,
+    required: false,
     type: Array,
   },
 });
@@ -52,4 +52,4 @@ export default {
   },
 };
 </script>
-<style scoped></style> -->
+<style scoped></style>
