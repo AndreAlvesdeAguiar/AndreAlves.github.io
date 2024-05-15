@@ -4,14 +4,15 @@
   >
     <h1>Meus Posts</h1>
     
-    <BlogGridSkeleton v-if="pending" />
-    <BlogGrid  v-else="post in posts" :key="post.id" />
+   
   </div>
 </template>
       <div v-if="post in posts" :key="post.id">
         <h2>{{ post.title }}</h2>
         <p>{{ post.description }}</p>
         <a :href="post.url" target="_blank">Ver post</a>
+        <BlogGridSkeleton v-if="pending" />
+        <BlogGrid  v-else :posts="posts" />
       </div>
 
 <script setup lang="ts">
