@@ -1,26 +1,32 @@
 <template>
-  <div
-    class="flex flex-col sm:justify-between items-center dark:bg-ternary-dark md:px-10 md:py-10"
-  >
-    <BlogGridSkeleton v-if="pending" />
-    <BlogGrid v-else :posts="posts" />
+  <div>
+    <h1>Meus Posts</h1>
+    <div v-if="loading">Carregando...</div>
+    <div v-else>
+      <div v-for="post in posts" :key="post.id">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.description }}</p>
+        <a :href="post.url" target="_blank">Ver post</a>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useLazyFetch } from 'your-lazy-fetch-lib'; // Importe sua biblioteca de busca preguiçosa
+import { ref, onMounted } from 'vue';
 
-// Função para obter os artigos do Dev.to
-const getArticles = async (username) => {
-  const articles = await fetch(`https://dev.to/api/articles?username=${username}`).then((res) => res.json());
-  return articles;
-};
+const posts = ref([]);
+const loading = ref(true);
 
-// Use a função para obter os artigos e manipule a lógica de carregamento
-const username = 'dehkeep'; // Defina seu nome de usuário do Dev.to
-const { data: posts, pending } = await useLazyFetch(() => getArticles(username));
+onMounted(async () => {
+  try {
+    const response = await fetch('https://dev.to/api/articles?username=dehkeep');
+    const data = await response.json();
+    posts.value = data;
+    loading.value = false;
+  } catch (error) {
+    console.error('Erro ao carregar os posts:', error);
+    loading.value = false;
+  }
+});
 </script>
-
-<style scoped>
-/* Estilos específicos para este componente */
-</style>
