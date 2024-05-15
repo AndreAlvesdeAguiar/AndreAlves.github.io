@@ -12,9 +12,9 @@
       </div>
     </div> -->
 
-    <BlogGridSkeleton v-if="pending" />
+    <BlogGridSkeleton v-if="!pending" />
     <BlogGrid v-else :posts="posts" />
-    
+
   </div>
 </template>
 
