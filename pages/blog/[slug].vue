@@ -1,144 +1,187 @@
-<template>
-  <div class="grid p-5 w-full sm:m-auto sm:max-w-3xl">
-    <div class="min-h-screen">
-      <div class="flex mb-4">
-        <h1 class="dark:text-gray-300 text-3xl font-bold">Github Repo</h1>
-      </div>
-
-      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2" v-if="loading == true">
-        <div class="card bg-gray-100 shadow-xl h-40" v-for="x in 6" :key="x">
-          <div class="card-body bg-zinc-200 dark:bg-zinc-800 animate-pulse">
-            <div class="card-actions justify-end"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 mb-10 sm:mb-0" v-else>
-        <div class="card border border-black dark:border-white" v-for="(x, key) in repo" :key="key">
-          <div class="card-body">
-            <h2 class="card-title dark:text-white underline">{{ x.name }}</h2>
-            <p class="dark:text-white">
-              {{ x.description ?? "No Description" }}
-            </p>
-            <div class="card-actions justify-end" v-if="x.homepage != '' && x.homepage != null">
-              <a :href="x.homepage" target="_blank" class="btn btn-sm dark:border-white dark:text-white">View</a>
-            </div>
-            <div class="card-actions justify-between items-center mt-3">
-              <span class="badge badge-primary dark:text-white">{{
-              x.language
-              }}</span>
-              <a :href="x.html_url" target="_blank" class="btn btn-sm btn-primary dark:text-white">View Repo</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div id="load_more" class="w-full text-center mt-8">
-        <label for="" class="btn btn-ghost dark:text-white" v-if="load_more">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-            stroke="currentColor" class="w-6 h-6 animate-spin">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
-          </svg>
-        </label>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
+import feather from "feather-icons";
+import ProjectRelatedProjects from "../../components/projects/ProjectRelatedProjects.vue";
 export default {
-  head: {
-    title: "Projects - Andre | Portfolio",
-  },
-  data() {
+  components: { ProjectRelatedProjects },
+  scrollToTop: true,
+  data: () => {
     return {
-      repo: [],
-      loading: true,
-      url: "https://dev.to/api/articles/aguiar1001/link-com-vercel-3f46"",
-      counter: 0,
-      load_more: false,
-      data_length: 0,
+      // @todo
     };
   },
-  mounted() {
-    fetch(this.url)
-      .then((response) => response.json())
-      .then((data) => {
-        this.sortByDate(data);
-        this.data_length = data.length;
-        data.forEach((element) => {
-          this.loading = false;
-          if (this.counter < 6) {
-            if (element.private == false) {
-              this.repo.push(element);
-              this.counter++;
-            }
-          }
-        });
-      })
-      .then(() => {
-        this.counter = 0;
-      })
-      .catch((e) => console.log(e));
-
-    const load = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          if (this.repo.length < this.data_length) {
-            this.load_more = true;
-            this.loadMore();
-          }
-        }
-      });
-    });
-
-    load.observe(document.querySelector("#load_more"));
-
+  computed: {
+    project() {
+      return this.$store.getters.getProjectById(this.$route.params.id);
+    },
   },
-  methods: {
-    sortByDate(arr) {
-      const sorter = (a, b) => {
-        return (
-          new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
-        );
-      };
-      arr.sort(sorter);
-    },
-
-    loadMore() {
-      setTimeout(() => {
-        fetch(this.url)
-          .then((response) => response.json())
-          .then((data) => {
-            this.sortByDate(data);
-            data.forEach((element) => {
-              if (this.repo.length < data.length) {
-                this.repo.forEach((r) => {
-                  if (element != null && element.id == r.id) {
-                    element = null;
-                  }
-                });
-                if (element != null && this.counter < 6) {
-                  if (element.private == false) {
-                    this.repo.push(element);
-                    this.counter++;
-                  }
-                }
-              }
-            });
-            // console.log(this.repo.length, data.length);
-            this.load_more = false;
-          })
-          .then(() => {
-            this.counter = 0;
-          })
-          .catch((e) => console.log(e));
-      }, 1000);
-    },
+  mounted() {
+    feather.replace();
+  },
+  updated() {
+    feather.replace();
   },
 };
 </script>
 
-<style>
+<template>
+  <div class="container mx-auto">
+    <!-- Check if there are projects and then load -->
+    <div v-if="project">
+      <!-- Project heading and meta info -->
+      <div>
+        <p
+          class="font-general-medium text-left text-3xl sm:text-4xl font-bold text-primary-dark dark:text-primary-light mt-14 sm:mt-20 mb-7"
+        >
+          {{ project.title }}
+        </p>
+        <div class="flex">
+          <div class="flex items-center mr-10">
+            <i
+              data-feather="clock"
+              class="w-4 h-4 text-ternary-dark dark:text-ternary-light"
+            ></i>
+            <span
+              class="font-general-medium ml-2 leading-none text-primary-dark dark:text-primary-light"
+              >{{ project.publishDate }}</span
+            >
+          </div>
+          <div class="flex items-center">
+            <i
+              data-feather="tag"
+              class="w-4 h-4 text-ternary-dark dark:text-ternary-light"
+            ></i>
+            <span
+              class="font-general-medium ml-2 leading-none text-primary-dark dark:text-primary-light"
+              >{{ project.tag }}</span
+            >
+          </div>
+        </div>
+      </div>
 
-</style>
+      <!-- Project gallery -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 sm:gap-10 mt-12">
+        <div
+          v-for="projectImage in project.projectImages"
+          :key="projectImage.id"
+          class="mb-10 sm:mb-0"
+        >
+          <img
+            :src="projectImage.img"
+            class="rounded-xl cursor-pointer shadow-lg sm:shadow-none"
+          />
+        </div>
+      </div>
+
+      <!-- Project info -->
+      <div class="block sm:flex gap-0 sm:gap-10 mt-14">
+        <!-- Single project left section details -->
+        <div class="w-full sm:w-1/3 text-left">
+          <!-- Single project client details -->
+          <div class="mb-7">
+            <p
+              class="font-general-medium text-2xl text-secondary-dark dark:text-secondary-light mb-2"
+            >
+              {{ project.clientTitle }}
+            </p>
+            <ul class="leading-loose">
+              <li
+                v-for="info in project.companyInfos"
+                :key="info.id"
+                class="font-general-regular text-ternary-dark dark:text-ternary-light"
+              >
+                <span>{{ info.title }}: </span>
+                <a
+                  href="#"
+                  :class="
+                    info.title == 'Website' || info.title == 'Phone'
+                      ? 'hover:underline cursor-pointer'
+                      : ''
+                  "
+                  aria-label="Project website and phone"
+                  >{{ info.details }}</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Single project objectives -->
+          <div class="mb-7">
+            <p
+              class="font-general-medium text-2xl text-ternary-dark dark:text-ternary-light mb-2"
+            >
+              {{ project.objectivesTitle }}
+            </p>
+            <p
+              class="font-general-regular text-primary-dark dark:text-ternary-light"
+            >
+              {{ project.objectivesDetails }}
+            </p>
+          </div>
+
+          <!-- Single project technologies -->
+          <div class="mb-7">
+            <p
+              class="font-general-medium text-2xl text-ternary-dark dark:text-ternary-light mb-2"
+            >
+              {{ project.techTitle }}
+            </p>
+            <p
+              class="font-general-regular text-primary-dark dark:text-ternary-light"
+            >
+              {{ project.technologies.join(", ") }}
+            </p>
+          </div>
+
+          <!-- Single project social sharing -->
+          <div>
+            <p
+              class="font-general-medium text-2xl text-ternary-dark dark:text-ternary-light mb-2"
+            >
+              {{ project.socialTitle }}
+            </p>
+            <div class="flex items-center gap-3 mt-5">
+              <a
+                v-for="social in project.socialSharings"
+                :key="social.id"
+                :href="social.url"
+                target="__blank"
+                aria-label="Share Project"
+                class="bg-ternary-light dark:bg-ternary-dark text-gray-400 hover:text-primary-dark dark:hover:text-primary-light p-2 rounded-lg shadow-sm duration-500"
+                ><i
+                  :data-feather="social.icon"
+                  class="w-4 lg:w-5 h-4 lg:h-5"
+                ></i
+              ></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Single project right section details -->
+        <div class="w-full sm:w-2/3 text-left mt-10 sm:mt-0">
+          <p
+            class="font-general-medium text-primary-dark dark:text-primary-light text-2xl font-bold mb-7"
+          >
+            {{ project.detailsTitle }}
+          </p>
+          <p
+            v-for="projectDetail in project.projectDetails"
+            :key="projectDetail.id"
+            class="font-general-regular mb-5 text-lg text-ternary-dark dark:text-ternary-light"
+          >
+            {{ projectDetail.details }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Project related projects -->
+      <ProjectRelatedProjects />
+    </div>
+
+    <!-- Load not found components if no project found -->
+    <div v-else class="font-general-medium container mx-auto text-center">
+      <h1>No projects yet</h1>
+    </div>
+  </div>
+</template>
+
+<style scoped></style>

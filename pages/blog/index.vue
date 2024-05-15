@@ -54,7 +54,7 @@ export default {
     return {
       repo: [],
       loading: true,
-      url: "https://dev.to/api/articles/aguiar1001/link-com-vercel-3f46"",
+      url: "https://api.github.com/users/andrealvesdeaguiar/repos",
       counter: 0,
       load_more: false,
       data_length: 0,
