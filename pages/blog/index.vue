@@ -8,7 +8,7 @@
 </template>
 <script setup lang="ts">
 const { data: posts, pending } = await useFetch(
-  "https://andre-alvesde-aguiar-github-io.vercel.app/pt-BR/blog/link-com-vercel-3f46",
+  "https://dev.to/dehkeep/link-com-vercel-3f46",
 );
 </script>
 <style scoped></style>
