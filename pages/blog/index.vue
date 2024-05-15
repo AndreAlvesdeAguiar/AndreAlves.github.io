@@ -11,7 +11,7 @@ import { useLazyFetch } from 'your-lazy-fetch-lib'; // Import your lazy fetch li
 
 // Define variables using the setup function
 const { data: posts, pending, error } = useLazyFetch(
-  "https://dev.to/api/articles?username=aguiar1001&state=all"
+  "https://dev.to/api/articles?username=aguiar1001&per_page=100" // Adjust "your_username" accordingly
 );
 </script>
 
