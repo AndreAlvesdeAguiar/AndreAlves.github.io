@@ -12,5 +12,5 @@ const { data: posts, pending } = await useLazyFetch(
 );
 </script>
 <style scoped></style>
-
+ 
 

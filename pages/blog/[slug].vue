@@ -16,7 +16,7 @@ onBeforeRouteLeave(async (to, from, next) => {
   }
   next();
 });
-
+ 
 const { data: post, pending } = await useFetch(
   "https://dev.to/api/articles/dehkeep/" + slug,
   { lazy: true, server: false },
