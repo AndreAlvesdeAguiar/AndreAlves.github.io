@@ -44,6 +44,7 @@ export default {
       menus: [
         { name: "about", i18n: true },
         { name: "blog", i18n: false },
+        { name: "projects", i18n: false },
       ],
     };
   },
