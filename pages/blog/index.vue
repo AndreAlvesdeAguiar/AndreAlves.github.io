@@ -1,5 +1,7 @@
 <template>
-  <div class="flex flex-col sm:justify-between items-center dark:bg-ternary-dark md:px-10 md:py-10">
+  <div
+    class="flex flex-col sm:justify-between items-center dark:bg-ternary-dark md:px-10 md:py-10"
+  >
     <h1>Meus Posts</h1>
 
     <div v-if="!pending">
@@ -33,3 +35,7 @@ onMounted(async () => {
   }
 });
 </script>
+
+<style scoped>
+/* Estilos específicos para este componente */
+</style>
