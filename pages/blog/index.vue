@@ -26,7 +26,7 @@ const pending = ref(true);
 
 onMounted(async () => {
   try {
-    const response = await fetch('https://dev.to/api/articles?username=dehkeep');
+    const response = await fetch('https://dev.to/api/articles?username=lfxa');
     const data = await response.json();
     posts.value = data;
     pending.value = false;
