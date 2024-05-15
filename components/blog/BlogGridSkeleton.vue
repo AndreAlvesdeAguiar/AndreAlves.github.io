@@ -23,7 +23,7 @@
         </div>
       </article>
     </a>
-    <div class="md:row-span-2 row-span-1 col-span-5 md:col-span-2">
+    <!-- <div class="md:row-span-2 row-span-1 col-span-5 md:col-span-2">
       <div
         class="flex flex-col text-ternary-dark dark:text-ternary-light lg:mt-0 lg:ml-7"
       >
@@ -38,6 +38,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>

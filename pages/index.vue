@@ -13,7 +13,7 @@ export default {
     <!-- <ProjectsGrid /> -->
 
     <!-- View more projects button -->
-    <div class="mt-5 sm:mt-14 flex justify-center">
+    <!-- <div class="mt-5 sm:mt-14 flex justify-center">
       <NuxtLink
         to="/projects"
         class="
@@ -36,7 +36,7 @@ export default {
       >
         <Button title="More Projects" />
       </NuxtLink>
-    </div>
+    </div> -->
   </div>
 </template>
 

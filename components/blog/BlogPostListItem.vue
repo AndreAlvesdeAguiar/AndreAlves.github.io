@@ -50,6 +50,7 @@ type Post = {
   title: string;
   readable_publish_date: string;
   description: string;
+  // tag_list?: string[];
 };
 
 defineProps({
