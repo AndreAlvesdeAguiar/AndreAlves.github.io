@@ -3,6 +3,7 @@
     <!-- Show skeleton loader or blog grid based on pending state -->
     <BlogGridSkeleton v-if="pending" />
     <BlogGrid v-else :posts="mergedPosts" />
+    <p v-if="!pending">Hello World!</p>
   </div>
 </template>
 
