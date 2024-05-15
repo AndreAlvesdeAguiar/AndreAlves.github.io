@@ -1,16 +1,18 @@
 <template>
-  <div>
+  <div
+    class="flex flex-col sm:justify-between items-center dark:bg-ternary-dark md:px-10 md:py-10"
+  >
     <h1>Meus Posts</h1>
-    <div v-if="loading">Carregando...</div>
-    <div v-else>
+    
+    <BlogGridSkeleton v-if="pending" />
+    <BlogGrid  v-else :posts="posts" />
+  </div>
+</template>
       <div v-for="post in posts" :key="post.id">
         <h2>{{ post.title }}</h2>
         <p>{{ post.description }}</p>
         <a :href="post.url" target="_blank">Ver post</a>
       </div>
-    </div>
-  </div>
-</template>
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
