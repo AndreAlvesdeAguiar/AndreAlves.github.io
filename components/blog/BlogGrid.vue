@@ -7,12 +7,7 @@ if (route.query.to !== undefined) {
   const index = locale.value === "pt-BR" ? 0 : 1;
   await navigateTo(`/blog/${toPost[index]}`);
 }
-watch(
-  () => locale.value,
-  () => {
-    delete route.query.tag;
-  },
-);
+
 const props = defineProps({
   posts: {
     type: Array,
@@ -30,12 +25,7 @@ const filteredBlogPosts = computed(() => {
     ?.filter((post) => {
       const postLang = post.canonical_url.split("/")[3];
       const isSameLanguage = postLang === locale.value;
-      // const hasTagQuery = route.query.tag !== undefined;
-      return (
-        isSameLanguage &&
-        // (!hasTagQuery || post.tag_list.includes(route.query.tag))
-      );
-    })
+
     .slice(
       props.postPerPage * (currentPage.value - 1),
       currentPage.value * props.postPerPage,
@@ -61,10 +51,7 @@ const totalPages = computed(() =>
         :post="post"
       />
     </TransitionGroup>
-    <!-- <BlogTagList
-      class="md:row-span-2 row-span-1 col-span-6 md:col-span-2"
-      :tags="tags"
-    />
+
     <SharedPagination
       v-show="totalPages > 1"
       :current-page="currentPage"

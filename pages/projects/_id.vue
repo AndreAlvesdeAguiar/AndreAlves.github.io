@@ -46,10 +46,7 @@ export default {
             >
           </div>
           <div class="flex items-center">
-            <i
-              data-feather="tag"
-              class="w-4 h-4 text-ternary-dark dark:text-ternary-light"
-            ></i>
+
             <span
               class="font-general-medium ml-2 leading-none text-primary-dark dark:text-primary-light"
               >{{ project.tag }}</span
