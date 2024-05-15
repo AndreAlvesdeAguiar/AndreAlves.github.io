@@ -1,57 +1,113 @@
 <template>
-  <div class="col-span-2">
-    <div class="space-y-4">
-      <div class="flex items-center justify-between">
-        <p class="text-xl font-semibold">Posts</p>
-        <ul class="flex items-center text-gray-700">
-          <li class="px-3 py-1 border-b-4 border-blue-600">Feed</li>
-          <li class="px-3 py-1">Week</li>
-          <li class="px-3 py-1">Month</li>
-          <li class="px-3 py-1">Year</li>
-          <li class="px-3 py-1">Infinity</li>
-          <li class="px-3 py-1">Latest</li>
-        </ul>
-      </div>
-      <article-loader v-if="$fetchState.pending" />
-      <p v-else-if="$fetchState.error">An error occurred :(</p>
-      <div v-else class="space-y-4">
-        <post
-          v-for="(post, p) in posts"
+  <div class="page-wrapper">
+    <template v-if="$fetchState.pending && !articles.length">
+      <div class="article-cards-wrapper">
+        <content-placeholders
+          v-for="p in 30"
           :key="p"
-          :post="post"
-          :image="p === 0"
+          rounded
+          class="article-card-block"
+        >
+          <content-placeholders-img />
+          <content-placeholders-text :lines="3" />
+        </content-placeholders>
+      </div>
+    </template>
+    <template v-else-if="$fetchState.error">
+      <inline-error-block :error="$fetchState.error" />
+    </template>
+    <template v-else>
+      <div class="article-cards-wrapper">
+        <article-card-block
+          v-for="(article, i) in articles"
+          :key="article.id"
+          v-observe-visibility="
+            i === articles.length - 1 ? lazyLoadArticles : false
+          "
+          :article="article"
+          class="article-card-block"
         />
       </div>
-    </div>
+    </template>
+    <template v-if="$fetchState.pending && articles.length">
+      <div class="article-cards-wrapper">
+        <content-placeholders
+          v-for="p in 30"
+          :key="p"
+          rounded
+          class="article-card-block"
+        >
+          <content-placeholders-img />
+          <content-placeholders-text :lines="3" />
+        </content-placeholders>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
+import ArticleCardBlock from '@/components/blocks/ArticleCardBlock'
+import InlineErrorBlock from '@/components/blocks/InlineErrorBlock'
+
 export default {
-  data() {
-    return {
-      posts: [],
-    };
+  components: {
+    ArticleCardBlock,
+    InlineErrorBlock
   },
   async fetch() {
-    try {
-      const { data } = await this.$axios.get("https://dev.to/api/articles");
-      this.posts = data.map((item) => {
-        return {
-          title: item.title,
-          image: item.cover_image ? item.cover_image : item.social_image,
-          author: item.user.name,
-          profile_image: item.user.profile_image,
-          date: item.readable_publish_date,
-          tags: item.tag_list,
-          likes: item.public_reactions_count,
-          comments: item.comments_count,
-        };
-      });
-    } catch (err) {
-      alert(err);
+    const articles = await fetch(
+      `https://dev.to/api/articles?tag=nuxt&state=rising&page=${this.currentPage}`
+    ).then((res) => res.json())
+
+    this.articles = this.articles.concat(articles)
+  },
+  data() {
+    return {
+      currentPage: 1,
+      articles: []
     }
   },
-  fetchOnServer: false,
-};
+  methods: {
+    lazyLoadArticles(isVisible) {
+      if (isVisible) {
+        if (this.currentPage < 5) {
+          this.currentPage++
+          this.$fetch()
+        }
+      }
+    }
+  },
+  head() {
+    return {
+      title: 'New Nuxt.js articles'
+    }
+  }
+}
 </script>
+
+<style lang="scss" scoped>
+.page-wrapper {
+  max-width: $screen-xl;
+  margin: auto;
+  padding: 1rem;
+  min-height: 100vh;
+}
+
+.article-cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  .article-card-block {
+    width: calc(100% - 2 * 1rem);
+    margin: 1rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
+    @media (min-width: $screen-sm) {
+      width: calc(50% - 2 * 1rem);
+    }
+    @media (min-width: $screen-lg) {
+      width: calc(33.33333% - 2 * 1rem);
+    }
+  }
+}
+</style>
