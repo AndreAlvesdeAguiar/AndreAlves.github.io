@@ -46,30 +46,30 @@ const totalPages = computed(() =>
   Math.ceil(filteredBlogPosts.value.length / props.postPerPage),
 );
 
-// const tags = computed(() => {
-//   const tagCounts = {};
-//   // add lang filter
-//   props.posts?.forEach((post) => {
-//     const lang = post.canonical_url.split("/")[3];
-//     post.tag_list.forEach((tag) => {
-//       const key = tag + ":" + lang;
-//       if (tagCounts[key]) {
-//         tagCounts[key]++;
-//       } else {
-//         tagCounts[key] = 1;
-//       }
-//     });
-//   });
+const tags = computed(() => {
+  const tagCounts = {};
+  // add lang filter
+  props.posts?.forEach((post) => {
+    const lang = post.canonical_url.split("/")[3];
+    post.tag_list.forEach((tag) => {
+      const key = tag + ":" + lang;
+      if (tagCounts[key]) {
+        tagCounts[key]++;
+      } else {
+        tagCounts[key] = 1;
+      }
+    });
+  });
 
-//   const output = [];
-//   for (const tagLang in tagCounts) {
-//     const key = tagLang.split(":");
-//     output.push({ name: key[0], quantity: tagCounts[tagLang], lang: key[1] });
-//   }
-//   output.sort((a, b) => a.name.localeCompare(b.name));
-//   return output;
-// });
-// </script>
+  const output = [];
+  for (const tagLang in tagCounts) {
+    const key = tagLang.split(":");
+    output.push({ name: key[0], quantity: tagCounts[tagLang], lang: key[1] });
+  }
+  output.sort((a, b) => a.name.localeCompare(b.name));
+  return output;
+});
+</script>
 
 <template>
   <div
