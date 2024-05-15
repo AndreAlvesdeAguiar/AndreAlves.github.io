@@ -14,7 +14,7 @@ import { useLazyFetch } from 'lazy-fetch-lib';
 // Defina a função que busca os artigos
 const fetchArticles = async () => {
   try {
-    const response = await fetch('https://dev.to/api/articles?username=dehkeep&state=all');
+    const response = await fetch('https://dev.to/api/articles?username=lfxa&state=all');
     return await response.json();
   } catch (error) {
     throw new Error('Erro ao carregar os artigos: ' + error.message);
