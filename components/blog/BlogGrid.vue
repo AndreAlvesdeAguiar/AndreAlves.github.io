@@ -25,12 +25,14 @@ const filteredBlogPosts = computed(() => {
     ?.filter((post) => {
       const postLang = post.canonical_url.split("/")[3];
       const isSameLanguage = postLang === locale.value;
-
-    .slice(
+      return isSameLanguage;
+    })
+    ?.slice(
       props.postPerPage * (currentPage.value - 1),
       currentPage.value * props.postPerPage,
     );
 });
+
 
 const totalPages = computed(() =>
   Math.ceil(filteredBlogPosts.value.length / props.postPerPage),
@@ -50,15 +52,13 @@ const totalPages = computed(() =>
         :featured="filteredBlogPosts[0].id === post.id"
         :post="post"
       />
-    </TransitionGroup>
-
-    <SharedPagination
-      v-show="totalPages > 1"
-      :current-page="currentPage"
-      :total-pages="totalPages"
-      @next-page="currentPage++"
-      @prev-page="currentPage--"
-    /> -->
+      <SharedPagination
+        v-show="totalPages > 1"
+        :current-page="currentPage"
+        :total-pages="totalPages"
+        @next-page="currentPage++"
+        @prev-page="currentPage--"
+      />
   </div>
   <div
     v-else
